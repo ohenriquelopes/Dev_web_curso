@@ -8,12 +8,15 @@ services:
       - "443:443"
     volumes:
       - ./www:/var/www/html
-      - ./config/php.ini:/usr/local/etc/php/php.ini
+      #short_open_tag=on no php.ini
+      - ./config/php.ini:/usr/local/etc/php/php.ini 
 
   db:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
     restart: always
+    ports:
+      - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
 
