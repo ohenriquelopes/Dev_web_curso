@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  web:
+    image: php:7.2.34-apache
+    ports:
+      - "81:80"
+      - "443:443"
+    volumes:
+      - ./www:/var/www/html
+      - ./config/php.ini:/usr/local/etc/php/php.ini
+
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "8080:80"
+    #volumes:
+      #- ./uploads.ini:/usr/local/etc/php/conf.d/php-phpmyadmin.ini
